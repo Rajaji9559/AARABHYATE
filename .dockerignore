@@ -1,0 +1,43 @@
+# Git Repository Metadata
+.git
+.gitignore
+.gitattributes
+
+# IDE Configuration and Local Editor Settings
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Testing, Code Coverage Reports & Profiling
+*.test
+*.out
+*.prof
+__debug_bin
+
+# Local Environment Variables and Secrets (excluding .env as requested for copying)
+.env.local
+.env.*.local
+.env.example
+
+# Go Binaries and Local Build Artifacts
+api
+*.exe
+*.dll
+*.dylib
+*.so
+
+# Scratch Directories and Temporary Local Scripts
+scratch/
+.system_generated/
+.gemini/
+
+# Frontend Dependency Cache (if any)
+node_modules/
+
+# Docker build files (prevents recursive copying)
+Dockerfile
+.dockerignore

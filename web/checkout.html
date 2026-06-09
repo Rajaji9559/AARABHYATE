@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AARABHYATE | Checkout Requisition</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="scramble.js" defer></script>
+  <style>
+    .checkout-container {
+      padding-top: calc(72px + var(--space-12));
+      padding-bottom: var(--space-16);
+      min-height: 100vh;
+      background: var(--bg-base);
+    }
+    
+    .checkout-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: var(--space-8);
+      margin-top: var(--space-6);
+    }
+    
+    .checkout-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+      position: relative;
+    }
+    .checkout-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+    }
+    
+    .summary-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      height: fit-content;
+      position: sticky;
+      top: calc(72px + var(--space-6));
+    }
+    
+    .checkout-title {
+      font-size: 1.5rem;
+      margin-bottom: var(--space-2);
+    }
+    .checkout-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: var(--space-6);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--bg-border);
+    }
+    .item-name {
+      font-weight: 500;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+    }
+    .item-price {
+      font-family: var(--font-mono);
+      color: var(--neon-green);
+      font-weight: 700;
+    }
+    
+    .totals-row {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--space-4) 0;
+      font-family: var(--font-sans);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      border-top: 2px solid var(--bg-border);
+      margin-top: var(--space-4);
+    }
+    
+    .checkout-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    
+    .btn-checkout {
+      background: var(--neon-cyan);
+      color: var(--bg-void);
+      font-family: var(--font-sans);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      box-shadow: var(--glow-cyan);
+      width: 100%;
+      padding: var(--space-3);
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      transition: all var(--ease-normal);
+      margin-top: var(--space-4);
+    }
+    .btn-checkout:hover {
+      background: var(--neon-green);
+      box-shadow: var(--glow-green);
+    }
+    .btn-checkout:disabled {
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      border: 1px solid var(--bg-border);
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 900px) {
+      .checkout-layout {
+        grid-template-columns: 1fr;
+      }
+      .summary-card {
+        position: static;
+      }
+    }
+    
+    .success-panel {
+      text-align: center;
+      padding: var(--space-10) 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">
+      <img src="logo.png" alt="Aarabhyate Logo" class="brand-logo" style="margin-right: var(--space-2); height: 40px; width: auto; flex-shrink: 0;">
+      <div class="brand-text">
+        <span class="brand-name scramble-target">AARABHYATE</span>
+        <span class="brand-sub">Research Group</span>
+      </div>
+    </a>
+    <ul class="navbar-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">E-Shop</a></li>
+      <li><a href="portal.html">Custom Builds</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li id="authNavButton">
+        <a href="login.html" class="btn btn-outline" style="padding: 6px 16px; margin-left: var(--space-4);">
+          Login
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="checkout-container">
+    <div class="container">
+      
+      <div class="checkout-layout">
+        
+        <!-- Main Form Column -->
+        <main>
+          <div class="checkout-card" id="checkoutWorkspace">
+            
+            <div id="checkoutFormWrapper">
+              <h2 class="checkout-title">Hardware Requisition Form</h2>
+              <div class="checkout-subtitle">Secure Transit Configuration // SEC_LEVEL_3</div>
+              
+              <form id="checkoutForm" class="checkout-form">
+                
+                <div class="form-group">
+                  <label class="form-label">Shipping Destination Address</label>
+                  <textarea id="shippingAddress" class="form-input" rows="3" required placeholder="Enter full shipping delivery address..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label">Secure Contact Number</label>
+                  <input type="text" id="phone" class="form-input" required placeholder="e.g. +91 98765 43210" autocomplete="tel">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Quantity</label>
+                  <input type="number" id="quantity" class="form-input" required min="1" max="10" value="1" style="width: 100px; font-family: var(--font-mono)">
+                </div>
+                
+                <div class="form-error" id="checkoutError" style="margin-top: var(--space-2); display:none"></div>
+                
+                <button type="submit" class="btn-checkout" id="submitOrderBtn">
+                  <span>DISPATCH HARDWARE CONTRACT</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                </button>
+                
+              </form>
+            </div>
+            
+            <!-- Success state -->
+            <div id="successPanel" class="success-panel" style="display: none;">
+              <span style="font-size: 3rem; display: block; margin-bottom: var(--space-4);">🚀</span>
+              <h2 class="neon-text-green" style="font-size: 1.8rem; margin-bottom: var(--space-2);">Contract Dispatched!</h2>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); max-width: 500px; margin: 0 auto var(--space-6);">
+                Hardware requisition ticket successfully committed to PostgreSQL database. Your deployment package is queued.
+              </p>
+              <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); background: var(--bg-elevated); padding: var(--space-3); border-radius: var(--radius-sm); display: inline-block; margin-bottom: var(--space-8);">
+                TICKET_HASH: <span id="successOrderHash" class="neon-text-cyan">---</span>
+              </div>
+              <div>
+                <a href="dashboard.html" class="btn btn-primary" style="background: var(--neon-green); box-shadow: var(--glow-green); color: var(--bg-void);">
+                  ACCESS CUSTOMER DASHBOARD
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </main>
+        
+        <!-- Summary Sidebar Column -->
+        <aside>
+          <div class="summary-card">
+            <h3 class="label" style="color: var(--neon-cyan); margin-bottom: var(--space-4);">Telemetry Summary</h3>
+            
+            <div id="summaryItemContainer">
+              <div class="item-row" style="border: none; color: var(--text-muted); text-align: center; padding: 20px 0;">
+                No hardware selection loaded.
+              </div>
+            </div>
+            
+            <div class="totals-row">
+              <span>ESTIMATED CAPITAL</span>
+              <span id="estimatedTotal" class="neon-text-green">$0.00</span>
+            </div>
+            
+            <p style="font-size: 0.7rem; color: var(--text-muted); margin-top: var(--space-4); line-height: 1.4;">
+              Authoritative prices resolved server-side. Placing order locks required product stocks in an ACID transaction to prevent overselling.
+            </p>
+          </div>
+        </aside>
+        
+      </div>
+      
+    </div>
+  </div>
+
+  <div id="toast" class="toast">
+    <div class="toast-icon"></div>
+    <div class="toast-text"></div>
+  </div>
+
+  <script>
+    let activeSelection = null;
+    const token = localStorage.getItem("arg_token");
+
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      toast.className = `toast visible ${type}`;
+      toast.querySelector('.toast-icon').textContent = type === 'success' ? '✓' : '⚠️';
+      toast.querySelector('.toast-text').textContent = message;
+      setTimeout(() => { toast.classList.remove('visible'); }, 3000);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. Enforce Auth
+      if (!token) {
+        showToast("Authentication required. Redirecting to login...", "error");
+        setTimeout(() => {
+          window.location.replace("/login.html?redirect=checkout");
+        }, 1500);
+        return;
+      }
+      
+      // Update nav user display
+      fetchUserProfile();
+
+      // 2. Load selected product
+      const selectionData = localStorage.getItem("arg_checkout_selection");
+      if (!selectionData) {
+        showToast("Requisition payload missing. Redirecting to shop...", "error");
+        setTimeout(() => {
+          window.location.href = "/shop.html";
+        }, 1500);
+        return;
+      }
+
+      activeSelection = JSON.parse(selectionData);
+      renderSummary();
+    });
+
+    async function fetchUserProfile() {
+      try {
+        const res = await fetch("/api/v1/me", {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          const authNav = document.getElementById("authNavButton");
+          authNav.innerHTML = `<span class="btn btn-outline" style="padding: 6px 16px; margin-left: var(--space-4); border-color:var(--bg-border); font-family:var(--font-mono); font-size:0.75rem; color:var(--text-secondary);">OPERATOR // ${data.name.split(' ')[0].toUpperCase()}</span>`;
+        }
+      } catch (err) {
+        console.warn("Could not query operator profile telemetry:", err);
+      }
+    }
+
+    function renderSummary() {
+      if (!activeSelection) return;
+      
+      const qty = parseInt(document.getElementById("quantity").value) || 1;
+      const subtotal = activeSelection.price * qty;
+      
+      const container = document.getElementById("summaryItemContainer");
+      container.innerHTML = `
+        <div class="item-row">
+          <div>
+            <div class="item-name">${escapeHTML(activeSelection.name)}</div>
+            <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); margin-top: 4px;">Qty: ${qty} x $${activeSelection.price.toFixed(2)}</div>
+          </div>
+          <span class="item-price">$${subtotal.toFixed(2)}</span>
+        </div>
+      `;
+      
+      document.getElementById("estimatedTotal").textContent = `$${subtotal.toFixed(2)}`;
+    }
+
+    // Bind quantity update
+    document.getElementById("quantity").addEventListener("input", renderSummary);
+
+    // Form Submit
+    document.getElementById("checkoutForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      
+      const address = document.getElementById("shippingAddress").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const qty = parseInt(document.getElementById("quantity").value) || 1;
+      const errorEl = document.getElementById("checkoutError");
+      errorEl.style.display = "none";
+
+      if (!activeSelection) return;
+
+      const payload = {
+        shipping_address: address,
+        phone: phone,
+        items: [
+          {
+            product_id: activeSelection.product_id,
+            quantity: qty
+          }
+        ]
+      };
+
+      const submitBtn = document.getElementById("submitOrderBtn");
+      submitBtn.disabled = true;
+      submitBtn.querySelector("span").textContent = "DEPLOYING PAYLOAD...";
+
+      try {
+        const res = await fetch("/api/v1/orders", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        
+        if (!res.ok) {
+          throw new Error(data.error || "Order placement failed.");
+        }
+
+        // Success!
+        localStorage.removeItem("arg_checkout_selection");
+        document.getElementById("checkoutFormWrapper").style.display = "none";
+        document.getElementById("successOrderHash").textContent = `ord_${data.order_id.substring(0, 13)}...`;
+        document.getElementById("successPanel").style.display = "block";
+        showToast("Hardware contract deployed successfully!", "success");
+
+      } catch (err) {
+        errorEl.textContent = err.message;
+        errorEl.style.display = "block";
+        submitBtn.disabled = false;
+        submitBtn.querySelector("span").textContent = "DISPATCH HARDWARE CONTRACT";
+      }
+    });
+
+    function escapeHTML(str) {
+      if (!str) return '';
+      return str.replace(/[&<>'"]/g, 
+        tag => ({
+          '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+        }[tag] || tag)
+      );
+    }
+  </script>
+</body>
+</html>

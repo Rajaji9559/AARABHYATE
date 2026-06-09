@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  # 1. PostgreSQL Database Service
+  postgres_db:
+    image: postgres:16-alpine
+    container_name: postgres_db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: my_project_user
+      POSTGRES_PASSWORD: 123password
+      POSTGRES_DB: my_project_db
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - aarabhyate_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U my_project_user -d my_project_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # 2. Go Backend API Service
+  api_server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api_server
+    expose:
+      - "8080"
+    env_file:
+      - .env
+    environment:
+      # Override the local host URL to connect to the db container name inside the Docker network
+      - DATABASE_URL=postgres://my_project_user:123password@postgres_db:5432/my_project_db?sslmode=disable
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+    networks:
+      - aarabhyate_net
+    restart: unless-stopped
+
+  # 3. Nginx Reverse Proxy Web Server
+  nginx_web:
+    image: nginx:alpine
+    container_name: nginx_web
+    ports:
+      - "80:80"
+    volumes:
+      # Map the local ./web folder containing static frontend assets (index.html, shop.html, etc.)
+      - ./web:/usr/share/nginx/html:ro
+      # Map the custom reverse-proxy Nginx configuration
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api_server
+    networks:
+      - aarabhyate_net
+    restart: unless-stopped
+
+# Persistent database storage volume
+volumes:
+  pg_data:
+    name: aarabhyate_pg_data
+
+# Custom bridged network for container-to-container name resolution
+networks:
+  aarabhyate_net:
+    name: aarabhyate_network
+    driver: bridge

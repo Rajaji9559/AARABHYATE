@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Project Portal | AARABHYATE Research Group</title>
+  <meta name="description" content="Submit a custom robotics or embedded systems project brief to AARABHYATE Research Group. We scope, design, and build precision solutions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <script src="scramble.js" defer></script>
+</head>
+<body>
+
+<!-- ======================================================================
+     NAVIGATION (identical to home)
+     ====================================================================== -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <a href="index.html" class="navbar-brand" aria-label="AARABHYATE Home">
+    <img src="logo.png" alt="Aarabhyate Logo" class="brand-logo" aria-hidden="true" style="margin-right: var(--space-2); height: 40px; width: auto; flex-shrink: 0;">
+    <div class="brand-text">
+      <span class="brand-name scramble-target">AARABHYATE</span>
+      <span class="brand-sub">Research Group</span>
+    </div>
+  </a>
+  <ul class="navbar-nav" id="main-nav" role="list">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">E-Shop</a></li>
+    <li><a href="portal.html" class="active">Custom Builds</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li>
+      <a href="login.html" class="btn btn-outline" style="padding: 6px 16px; margin-left: var(--space-4);">
+        Login
+      </a>
+    </li>
+    <li>
+      <a href="signup.html" class="btn btn-primary" style="padding: 6px 16px; margin-left: var(--space-2);">
+        Sign Up
+      </a>
+    </li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ======================================================================
+     PORTAL HERO
+     ====================================================================== -->
+<section class="portal-hero" aria-label="Portal header">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="container">
+    <div class="label fade-up" style="margin-bottom:var(--space-4)">Custom Builds · Bhopal</div>
+    <h1 class="fade-up fade-up-delay-1 glitch-hover" style="width: fit-content; margin-inline: auto;">
+      Project <span class="neon-text-green">Request</span> Portal
+    </h1>
+    <p class="fade-up fade-up-delay-2" style="max-width:580px;margin:var(--space-4) auto 0;font-size:1.05rem">
+      Describe your engineering challenge. Our team reviews every brief within
+      <strong style="color:var(--text-primary)">48 hours</strong> and responds
+      with a feasibility assessment.
+    </p>
+
+    <!-- Process breadcrumb -->
+    <div class="fade-up fade-up-delay-3" style="display:flex;align-items:center;justify-content:center;gap:var(--space-2);margin-top:var(--space-8);flex-wrap:wrap">
+      <span class="tag tag-green">① Submit Brief</span>
+      <span style="color:var(--text-muted);font-size:0.75rem">──</span>
+      <span class="tag tag-cyan" style="opacity:0.5">② Feasibility Review</span>
+      <span style="color:var(--text-muted);font-size:0.75rem">──</span>
+      <span class="tag tag-violet" style="opacity:0.5">③ Scoping Call</span>
+      <span style="color:var(--text-muted);font-size:0.75rem">──</span>
+      <span class="tag tag-amber" style="opacity:0.5">④ Proposal &amp; Build</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     INQUIRY FORM + SIDEBAR
+     ====================================================================== -->
+<section class="inquiry-form-section" aria-label="Project inquiry form">
+  <div class="container">
+    <div class="inquiry-layout">
+
+      <!-- ================================================================
+           MAIN FORM
+           ================================================================ -->
+      <div>
+        <div class="form-card" id="inquiry-form-card">
+
+          <div class="form-card-header">
+            <span class="status-dot" aria-hidden="true"></span>
+            <h3>Technical Project Brief</h3>
+            <span class="form-id" aria-label="Form version">FORM-ARG-2026</span>
+          </div>
+
+          <!-- The form — submits to the Go API -->
+          <form class="form-body" id="inquiry-form"
+                novalidate
+                aria-label="Project inquiry form">
+
+            <div class="form-grid">
+
+              <!-- Full Name -->
+              <div class="form-group fade-up" id="group-full-name">
+                <label class="form-label" for="full-name">
+                  Full Name <span class="required" aria-label="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="full-name"
+                  name="full_name"
+                  class="form-input"
+                  placeholder="e.g. Rajaram Mishra"
+                  autocomplete="name"
+                  maxlength="255"
+                  required
+                  aria-describedby="full-name-error"
+                >
+                <span class="form-error" id="full-name-error" role="alert">
+                  Please enter your full name (min 2 characters).
+                </span>
+              </div>
+
+              <!-- Email -->
+              <div class="form-group fade-up fade-up-delay-1" id="group-email">
+                <label class="form-label" for="email">
+                  Email Address <span class="required" aria-label="required">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-input"
+                  placeholder="you@institution.edu"
+                  autocomplete="email"
+                  required
+                  aria-describedby="email-error"
+                >
+                <span class="form-error" id="email-error" role="alert">
+                  Please enter a valid email address.
+                </span>
+              </div>
+
+              <!-- Project Type -->
+              <div class="form-group fade-up fade-up-delay-1" id="group-project-type">
+                <label class="form-label" for="project-type">
+                  Project Type <span class="required" aria-label="required">*</span>
+                </label>
+                <select
+                  id="project-type"
+                  name="project_type"
+                  class="form-select"
+                  required
+                  aria-describedby="project-type-error"
+                >
+                  <option value="" disabled selected>Select a domain →</option>
+                  <option value="embedded_systems">⚙️  Embedded Systems</option>
+                  <option value="ai_ml">🧠  AI / ML</option>
+                  <option value="custom_automation">⚡  Custom Automation</option>
+                  <option value="robotics_hardware">🦾  Robotics Hardware</option>
+                  <option value="other">🔬  Other / Research</option>
+                </select>
+                <span class="form-error" id="project-type-error" role="alert">
+                  Please select a project type.
+                </span>
+              </div>
+
+              <!-- Budget Estimate -->
+              <div class="form-group fade-up fade-up-delay-2" id="group-budget">
+                <label class="form-label" for="budget-estimate">
+                  Budget Estimate
+                </label>
+                <input
+                  type="text"
+                  id="budget-estimate"
+                  name="budget_estimate"
+                  class="form-input"
+                  placeholder="e.g. ₹50,000 – ₹1,50,000"
+                  maxlength="100"
+                  aria-describedby="budget-hint"
+                >
+                <span class="form-error" style="display:none" id="budget-hint"></span>
+              </div>
+
+              <!-- Timeline -->
+              <div class="form-group fade-up fade-up-delay-2 form-full" id="group-timeline">
+                <label class="form-label" for="timeline">
+                  Desired Timeline
+                </label>
+                <input
+                  type="text"
+                  id="timeline"
+                  name="timeline"
+                  class="form-input"
+                  placeholder="e.g. 3 months, Q3 2026, Before October"
+                  maxlength="100"
+                >
+              </div>
+
+              <!-- Technical Brief -->
+              <div class="form-group fade-up fade-up-delay-3 form-full" id="group-technical-brief">
+                <label class="form-label" for="technical-brief">
+                  Technical Brief <span class="required" aria-label="required">*</span>
+                </label>
+                <textarea
+                  id="technical-brief"
+                  name="technical_brief"
+                  class="form-textarea"
+                  placeholder="Describe your project in detail:&#10;• What problem are you solving?&#10;• What are the key technical requirements?&#10;• Any existing hardware/software constraints?&#10;• Desired inputs, outputs, and performance targets?"
+                  required
+                  minlength="50"
+                  maxlength="5000"
+                  rows="8"
+                  aria-describedby="brief-count brief-error"
+                ></textarea>
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <span class="form-error" id="brief-error" role="alert">
+                    Please describe your project (minimum 50 characters).
+                  </span>
+                  <span class="char-count" id="brief-count" aria-live="polite">0 / 5000</span>
+                </div>
+              </div>
+
+            </div><!-- /form-grid -->
+
+            <div class="form-footer">
+              <span class="form-note">
+                Your data is encrypted and never shared with third parties.
+              </span>
+              <button type="submit" class="btn-submit" id="submit-btn">
+                <span id="submit-btn-text">Submit Brief</span>
+                <svg id="submit-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+                <svg id="submit-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2.5" style="display:none;animation:spin 1s linear infinite" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" stroke-opacity="0.25"/>
+                  <path d="M12 2a10 10 0 0 1 10 10"/>
+                </svg>
+              </button>
+            </div>
+
+          </form><!-- /form -->
+
+          <!-- Success state (shown after submission) -->
+          <div class="form-success" id="form-success-msg" role="status" aria-live="polite">
+            <div class="success-icon" aria-hidden="true">✅</div>
+            <h3>Brief Received!</h3>
+            <p>
+              Thank you for reaching out. Our engineering team will review your brief
+              and respond to <strong id="success-email-display"></strong>
+              within <strong style="color:var(--text-primary)">48 hours</strong>.
+            </p>
+            <p style="margin-top:var(--space-4)">
+              <span class="mono" style="font-size:0.8rem;color:var(--text-muted)">
+                Reference ID: <span id="success-ref-id"></span>
+              </span>
+            </p>
+            <a href="index.html" class="btn btn-outline" style="margin-top:var(--space-8)">
+              ← Back to Home
+            </a>
+          </div>
+
+        </div><!-- /form-card -->
+      </div><!-- /main form col -->
+
+
+      <!-- ================================================================
+           SIDEBAR
+           ================================================================ -->
+      <aside class="portal-sidebar" aria-label="Portal information">
+
+        <!-- What we build -->
+        <div class="info-card fade-up">
+          <h4>What We Build</h4>
+          <div class="info-item">
+            <span class="info-icon" aria-hidden="true">⚙️</span>
+            <div class="info-item-body">
+              <div class="info-item-title">Embedded Systems</div>
+              <div class="info-item-desc">Custom firmware, sensor integration, PCB design, RTOS</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon" aria-hidden="true">🧠</span>
+            <div class="info-item-body">
+              <div class="info-item-title">AI / ML Solutions</div>
+              <div class="info-item-desc">Edge inference, computer vision, dataset pipeline, training</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon" aria-hidden="true">⚡</span>
+            <div class="info-item-body">
+              <div class="info-item-title">Custom Automation</div>
+              <div class="info-item-desc">PLC, SCADA, IIoT, robotic pick-and-place, conveyor systems</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon" aria-hidden="true">🦾</span>
+            <div class="info-item-body">
+              <div class="info-item-title">Robotics Hardware</div>
+              <div class="info-item-desc">Manipulators, mobile platforms, drones, exoskeletons</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Engagement Process -->
+        <div class="info-card fade-up fade-up-delay-1">
+          <h4>Engagement Process</h4>
+          <div class="process-step">
+            <div class="step-num">01</div>
+            <div class="step-body">
+              <h5>Submit Brief</h5>
+              <p>Fill the form with your requirements and desired outcomes.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-num">02</div>
+            <div class="step-body">
+              <h5>Feasibility Review</h5>
+              <p>Our team assesses technical scope within 48 hours.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-num">03</div>
+            <div class="step-body">
+              <h5>Scoping Call</h5>
+              <p>30-min video call to align on requirements and milestones.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-num">04</div>
+            <div class="step-body">
+              <h5>Proposal &amp; Kickoff</h5>
+              <p>Detailed proposal with timeline, deliverables, and cost breakdown.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Metrics -->
+        <div class="info-card fade-up fade-up-delay-2" style="background:var(--bg-elevated);border-color:rgba(0,255,136,0.15)">
+          <h4 style="color:var(--neon-green)">System Status</h4>
+          <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:0.8rem;color:var(--text-secondary)">API Gateway</span>
+              <span class="tag tag-green">ONLINE</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:0.8rem;color:var(--text-secondary)">Response SLA</span>
+              <span class="mono" style="font-size:0.75rem;color:var(--neon-cyan)">&lt; 48h</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:0.8rem;color:var(--text-secondary)">Current Queue</span>
+              <span class="mono" style="font-size:0.75rem;color:var(--neon-green)" id="queue-count">3 briefs</span>
+            </div>
+            <div class="divider"></div>
+            <p style="font-size:0.75rem;color:var(--text-muted)">
+              All submissions are reviewed by a senior engineer — not an automated filter.
+            </p>
+          </div>
+        </div>
+
+      </aside><!-- /sidebar -->
+
+    </div><!-- /inquiry-layout -->
+  </div>
+</section>
+
+
+<!-- ======================================================================
+     FOOTER
+     ====================================================================== -->
+<footer class="footer" aria-label="Site footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="navbar-brand" style="text-decoration:none">
+          <img src="logo.png" alt="Aarabhyate Logo" class="brand-logo" aria-hidden="true" style="margin-right: var(--space-2); height: 40px; width: auto; flex-shrink: 0;">
+          <div class="brand-text">
+            <span class="brand-name">AARABHYATE</span>
+            <span class="brand-sub">Research Group</span>
+          </div>
+        </a>
+        <p style="margin-top:var(--space-4)">
+          Engineering intelligent systems at the intersection of robotics,
+          embedded hardware, and applied AI.
+        </p>
+      </div>
+      <div>
+        <h4>Domains</h4>
+        <ul class="footer-links">
+          <li><a href="index.html#capabilities">Embedded Systems</a></li>
+          <li><a href="index.html#capabilities">Robotics</a></li>
+          <li><a href="index.html#capabilities">AI / ML</a></li>
+          <li><a href="index.html#capabilities">Industrial IoT</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul class="footer-links">
+          <li><a href="index.html#portfolio">Portfolio</a></li>
+          <li><a href="portal.html">Project Portal</a></li>
+          <li><a href="#">Research Papers</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:contact@aarabhyate.com">contact@aarabhyate.com</a></li>
+          <li><a href="#">Bhopal, Madhya Pradesh</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 AARABHYATE Research Group. All rights reserved.</p>
+      <p class="mono" style="font-size:0.7rem;color:var(--text-muted)">
+        v3.7.1-prod · <span style="color:var(--neon-green)">ACCEPTING BRIEFS</span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ======================================================================
+     TOAST NOTIFICATION
+     ====================================================================== -->
+<div class="toast" id="toast" role="alert" aria-live="assertive" aria-atomic="true">
+  <span class="toast-icon" id="toast-icon">✅</span>
+  <span class="toast-text" id="toast-text"></span>
+  <button class="toast-close" id="toast-close" aria-label="Dismiss notification">✕</button>
+</div>
+
+
+<!-- ======================================================================
+     JAVASCRIPT
+     ====================================================================== -->
+<script>
+/* ── Hamburger ──────────────────────────────────────────────────────────── */
+const hamburger = document.getElementById('hamburger');
+const navEl     = document.getElementById('main-nav');
+hamburger.addEventListener('click', () => {
+  const open = navEl.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+  hamburger.setAttribute('aria-expanded', open);
+});
+
+/* ── Fade-up observer ────────────────────────────────────────────────────── */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.animationPlayState = 'running';
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => {
+  el.style.animationPlayState = 'paused';
+  io.observe(el);
+});
+
+/* ── Char counter ────────────────────────────────────────────────────────── */
+const briefArea  = document.getElementById('technical-brief');
+const briefCount = document.getElementById('brief-count');
+briefArea.addEventListener('input', () => {
+  const len = briefArea.value.length;
+  briefCount.textContent = `${len} / 5000`;
+  briefCount.classList.toggle('warn', len > 4500);
+});
+
+/* ── Toast ───────────────────────────────────────────────────────────────── */
+const toastEl    = document.getElementById('toast');
+const toastIcon  = document.getElementById('toast-icon');
+const toastText  = document.getElementById('toast-text');
+const toastClose = document.getElementById('toast-close');
+let toastTimer;
+
+function showToast(message, type = 'success') {
+  toastIcon.textContent = type === 'success' ? '✅' : '❌';
+  toastText.textContent = message;
+  toastEl.className = `toast ${type} visible`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(hideToast, 5000);
+}
+function hideToast() {
+  toastEl.classList.remove('visible');
+}
+toastClose.addEventListener('click', hideToast);
+
+/* ── Form validation helpers ─────────────────────────────────────────────── */
+function setError(groupId, show) {
+  document.getElementById(groupId).classList.toggle('has-error', show);
+}
+
+function validateForm() {
+  let valid = true;
+
+  const name = document.getElementById('full-name').value.trim();
+  if (name.length < 2) { setError('group-full-name', true); valid = false; }
+  else                  { setError('group-full-name', false); }
+
+  const email = document.getElementById('email').value.trim();
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRe.test(email)) { setError('group-email', true); valid = false; }
+  else                      { setError('group-email', false); }
+
+  const type = document.getElementById('project-type').value;
+  if (!type) { setError('group-project-type', true); valid = false; }
+  else       { setError('group-project-type', false); }
+
+  const brief = briefArea.value.trim();
+  if (brief.length < 50) { setError('group-technical-brief', true); valid = false; }
+  else                   { setError('group-technical-brief', false); }
+
+  return valid;
+}
+
+/* ── Form submission ─────────────────────────────────────────────────────── */
+const form       = document.getElementById('inquiry-form');
+const submitBtn  = document.getElementById('submit-btn');
+const submitText = document.getElementById('submit-btn-text');
+const submitArrow   = document.getElementById('submit-arrow');
+const submitSpinner = document.getElementById('submit-spinner');
+const successMsg    = document.getElementById('form-success-msg');
+
+function setLoading(on) {
+  submitBtn.classList.toggle('loading', on);
+  submitText.textContent = on ? 'Submitting…' : 'Submit Brief';
+  submitArrow.style.display  = on ? 'none'  : 'block';
+  submitSpinner.style.display = on ? 'block' : 'none';
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (!validateForm()) {
+    showToast('Please fix the highlighted fields.', 'error');
+    return;
+  }
+
+  setLoading(true);
+
+  const payload = {
+    full_name:       document.getElementById('full-name').value.trim(),
+    email:           document.getElementById('email').value.trim().toLowerCase(),
+    project_type:    document.getElementById('project-type').value,
+    budget_estimate: document.getElementById('budget-estimate').value.trim(),
+    timeline:        document.getElementById('timeline').value.trim(),
+    technical_brief: briefArea.value.trim(),
+  };
+
+  try {
+    const res = await fetch('/api/v1/inquiries', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || `HTTP ${res.status}`);
+    }
+
+    /* ── Success ── */
+    form.style.display = 'none';
+    successMsg.classList.add('visible');
+    document.getElementById('success-email-display').textContent = payload.email;
+    document.getElementById('success-ref-id').textContent = data.inquiry?.id
+      ? `ARG-${data.inquiry.id.slice(0, 8).toUpperCase()}`
+      : 'ARG-XXXXXXXX';
+
+    showToast('Project brief submitted successfully!', 'success');
+
+  } catch (err) {
+    console.error('Submission error:', err);
+    showToast(`Submission failed: ${err.message}`, 'error');
+  } finally {
+    setLoading(false);
+  }
+});
+
+/* ── Real-time inline validation ─────────────────────────────────────────── */
+['full-name', 'email', 'project-type', 'technical-brief'].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener('blur', () => validateForm());
+});
+
+/* ── Animate queue count ─────────────────────────────────────────────────── */
+/* Simulated live counter — replace with a real API call if desired */
+(function() {
+  const counts = ['3 briefs', '3 briefs', '4 briefs', '3 briefs'];
+  let i = 0;
+  setInterval(() => {
+    i = (i + 1) % counts.length;
+    const el = document.getElementById('queue-count');
+    if (el) el.textContent = counts[i];
+  }, 5000);
+})();
+
+/* CSS spin keyframe */
+const style = document.createElement('style');
+style.textContent = '@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }';
+document.head.appendChild(style);
+</script>
+
+</body>
+</html>

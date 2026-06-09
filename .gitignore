@@ -1,0 +1,23 @@
+# ──────────────────────────────────────
+# AARABHYATE BACKEND — .gitignore
+# ──────────────────────────────────────
+
+# Environment / secrets
+.env
+*.env
+
+# Build artifacts
+/bin/
+dist/
+
+# Go tooling
+vendor/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp

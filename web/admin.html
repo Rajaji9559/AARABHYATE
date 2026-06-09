@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AARABHYATE | Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Admin Specific Overrides */
+    .admin-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: 100vh;
+      background: var(--bg-base);
+    }
+    .admin-sidebar {
+      background: var(--bg-surface);
+      border-right: 1px solid var(--bg-border);
+      padding: var(--space-6);
+    }
+    .admin-brand {
+      display: flex; align-items: center; gap: var(--space-3);
+      margin-bottom: var(--space-12);
+      text-decoration: none;
+    }
+    .admin-brand .logo-mark {
+      width: 32px; height: 32px; border: 2px solid var(--neon-cyan);
+      border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono); font-weight: 700; color: var(--neon-cyan);
+      box-shadow: var(--glow-cyan);
+    }
+    .admin-brand .brand-name { font-weight: 700; font-size: 0.95rem; color: var(--text-primary); }
+    .admin-nav { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); }
+    .admin-nav a {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3); border-radius: var(--radius-sm);
+      color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;
+      transition: all var(--ease-fast);
+    }
+    .admin-nav a:hover, .admin-nav a.active {
+      background: rgba(0,212,255,0.1); color: var(--neon-cyan);
+    }
+    
+    .admin-main { padding: var(--space-8); }
+    .admin-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: var(--space-8);
+    }
+    .admin-header h1 { font-size: 1.8rem; margin-bottom: var(--space-2); }
+    .admin-header p { font-family: var(--font-mono); font-size: 0.8rem; }
+    
+    /* Stats Grid */
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--space-4); margin-bottom: var(--space-8);
+    }
+    .stat-card {
+      background: var(--bg-surface); border: 1px solid var(--bg-border);
+      border-radius: var(--radius-md); padding: var(--space-4) var(--space-6);
+      display: flex; flex-direction: column; gap: var(--space-2);
+    }
+    .stat-label {
+      font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;
+    }
+    .stat-val { font-size: 1.8rem; font-weight: 700; font-family: var(--font-mono); }
+    .stat-val.green { color: var(--neon-green); }
+    .stat-val.cyan { color: var(--neon-cyan); }
+    .stat-val.violet { color: var(--neon-violet); }
+    .stat-val.amber { color: var(--neon-amber); }
+    
+    /* Data Table */
+    .data-card {
+      background: var(--bg-surface); border: 1px solid var(--bg-border);
+      border-radius: var(--radius-lg); overflow: hidden;
+    }
+    .data-toolbar {
+      padding: var(--space-4) var(--space-6); border-bottom: 1px solid var(--bg-border);
+      display: flex; gap: var(--space-4); align-items: center; background: var(--bg-elevated);
+    }
+    .data-toolbar .search-box {
+      background: var(--bg-surface); border: 1px solid var(--bg-border);
+      padding: 6px 12px; border-radius: var(--radius-sm); color: var(--text-primary);
+      font-family: var(--font-mono); font-size: 0.8rem; flex: 1; max-width: 300px;
+    }
+    .data-toolbar .filter-select {
+      background: var(--bg-surface); border: 1px solid var(--bg-border);
+      padding: 6px 12px; border-radius: var(--radius-sm); color: var(--text-primary);
+      font-family: var(--font-mono); font-size: 0.8rem;
+    }
+    
+    .table-responsive { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th {
+      font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.05em;
+      padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--bg-border);
+      white-space: nowrap;
+    }
+    td {
+      padding: var(--space-4); border-bottom: 1px solid var(--bg-border);
+      font-size: 0.85rem; vertical-align: middle;
+    }
+    tr:hover td { background: var(--bg-elevated); }
+    
+    .cell-id { font-family: var(--font-mono); color: var(--neon-cyan); font-size: 0.75rem; }
+    .cell-customer strong { display: block; color: var(--text-primary); }
+    .cell-customer span { color: var(--text-muted); font-size: 0.75rem; font-family: var(--font-mono); }
+    .cell-amount { font-family: var(--font-mono); font-weight: 600; }
+    .cell-date { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); }
+    
+    .status-select {
+      background: var(--bg-base); border: 1px solid var(--bg-border);
+      color: var(--text-primary); font-family: var(--font-mono); font-size: 0.75rem;
+      padding: 4px 8px; border-radius: var(--radius-sm); cursor: pointer;
+    }
+    .status-select.pending { color: var(--neon-amber); border-color: rgba(245,158,11,0.3); }
+    .status-select.processing { color: var(--neon-cyan); border-color: rgba(0,212,255,0.3); }
+    .status-select.shipped { color: var(--neon-violet); border-color: rgba(139,92,246,0.3); }
+    .status-select.delivered { color: var(--neon-green); border-color: rgba(0,255,136,0.3); }
+    .status-select.cancelled { color: var(--neon-red); border-color: rgba(255,68,68,0.3); }
+    
+    .loading-state { padding: var(--space-12); text-align: center; color: var(--text-muted); font-family: var(--font-mono); }
+  </style>
+</head>
+<body>
+
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <a href="/" class="admin-brand">
+        <div class="logo-mark">AR</div>
+        <span class="brand-name">AARABHYATE<br>ADMIN</span>
+      </a>
+      <nav class="admin-nav">
+        <a href="#orders" class="active">📦 Orders</a>
+        <a href="#inquiries">📩 Inquiries</a>
+        <a href="#products">⚙️ Products</a>
+        <a href="#users">👥 Users</a>
+      </nav>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-header">
+        <div>
+          <h1>Order Fulfillment</h1>
+          <p>Manage customer orders and dispatch</p>
+        </div>
+        <button class="btn btn-outline" onclick="logout()">Log Out</button>
+      </header>
+
+      <div class="stats-grid" id="statsContainer">
+        <!-- populated by js -->
+      </div>
+
+      <div class="data-card">
+        <div class="data-toolbar">
+          <input type="text" id="searchInput" class="search-box" placeholder="Search name or email..." />
+          <select id="statusFilter" class="filter-select">
+            <option value="">All Statuses</option>
+            <option value="pending">Pending</option>
+            <option value="processing">Processing</option>
+            <option value="shipped">Shipped</option>
+            <option value="delivered">Delivered</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          <button class="btn btn-primary" style="padding: 6px 12px; font-size: 0.8rem;" onclick="loadOrders()">Refresh</button>
+        </div>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Items</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody">
+              <tr>
+                <td colspan="6" class="loading-state">Loading orders...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast">
+    <div class="toast-icon"></div>
+    <div class="toast-text"></div>
+  </div>
+
+  <script>
+    // ── Auth Check ────────────────────────────────────────────────────────
+    const token = localStorage.getItem('arg_token');
+    if (!token) {
+      window.location.replace('/login.html');
+    }
+
+    // ── Toast Utility ──────────────────────────────────────────────────────
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      toast.className = `toast visible ${type}`;
+      toast.querySelector('.toast-icon').textContent = type === 'success' ? '✓' : '⚠️';
+      toast.querySelector('.toast-text').textContent = message;
+      setTimeout(() => { toast.classList.remove('visible'); }, 3000);
+    }
+
+    function logout() {
+      localStorage.removeItem('arg_token');
+      window.location.replace('index.html');
+    }
+
+    // ── Data Fetching ──────────────────────────────────────────────────────
+    const tableBody = document.getElementById('ordersTableBody');
+    const searchInput = document.getElementById('searchInput');
+    const statusFilter = document.getElementById('statusFilter');
+
+    searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') loadOrders(); });
+    statusFilter.addEventListener('change', loadOrders);
+
+    async function loadOrders() {
+      const search = encodeURIComponent(searchInput.value.trim());
+      const status = encodeURIComponent(statusFilter.value);
+      
+      tableBody.innerHTML = `<tr><td colspan="6" class="loading-state">Loading data...</td></tr>`;
+
+      try {
+        const res = await fetch(`/api/v1/admin/orders?limit=50&offset=0&search=${search}&status=${status}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (res.status === 401) {
+          logout();
+          return;
+        }
+        if (res.status === 403) {
+          window.location.href = '/dashboard.html';
+          return;
+        }
+
+        const data = await res.json();
+        
+        if (!res.ok) throw new Error(data.error || 'Failed to load orders');
+        
+        renderStats(data.stats);
+        renderTable(data.orders);
+
+      } catch (err) {
+        showToast(err.message, 'error');
+        tableBody.innerHTML = `<tr><td colspan="6" class="loading-state" style="color:var(--neon-red)">Error: ${err.message}</td></tr>`;
+      }
+    }
+
+    function renderStats(stats) {
+      const container = document.getElementById('statsContainer');
+      if (!stats) return;
+      container.innerHTML = `
+        <div class="stat-card">
+          <span class="stat-label">Total Revenue</span>
+          <span class="stat-val green">$${stats.total_revenue.toFixed(2)}</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Pending</span>
+          <span class="stat-val amber">${stats.pending_count}</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Processing</span>
+          <span class="stat-val cyan">${stats.processing_count}</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Shipped</span>
+          <span class="stat-val violet">${stats.shipped_count}</span>
+        </div>
+      `;
+    }
+
+    function renderTable(orders) {
+      if (!orders || orders.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="6" class="loading-state">No orders found.</td></tr>`;
+        return;
+      }
+
+      tableBody.innerHTML = orders.map(o => `
+        <tr>
+          <td class="cell-id" title="${o.id}">${o.id.split('-')[0]}...</td>
+          <td class="cell-customer">
+            <strong>${escapeHTML(o.user_name)}</strong>
+            <span>${escapeHTML(o.user_email)}</span>
+            <span>${escapeHTML(o.phone)}</span>
+          </td>
+          <td>${o.item_count} items</td>
+          <td class="cell-amount">$${o.total_amount.toFixed(2)}</td>
+          <td class="cell-date">${new Date(o.created_at).toLocaleDateString()}</td>
+          <td>
+            <select class="status-select ${o.status}" onchange="updateStatus('${o.id}', this)">
+              <option value="pending" ${o.status === 'pending' ? 'selected' : ''}>Pending</option>
+              <option value="processing" ${o.status === 'processing' ? 'selected' : ''}>Processing</option>
+              <option value="shipped" ${o.status === 'shipped' ? 'selected' : ''}>Shipped</option>
+              <option value="delivered" ${o.status === 'delivered' ? 'selected' : ''}>Delivered</option>
+              <option value="cancelled" ${o.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+            </select>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function updateStatus(orderId, selectEl) {
+      const newStatus = selectEl.value;
+      selectEl.className = `status-select ${newStatus}`; // update color instantly
+      
+      try {
+        const res = await fetch(`/api/v1/admin/orders/${orderId}/status`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ status: newStatus })
+        });
+        
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data.error || 'Failed to update status');
+        }
+        
+        showToast('Order status updated');
+        // reload to update stats
+        setTimeout(loadOrders, 500);
+      } catch (err) {
+        showToast(err.message, 'error');
+        loadOrders(); // revert UI on failure
+      }
+    }
+
+    function escapeHTML(str) {
+      if (!str) return '';
+      return str.replace(/[&<>'"]/g, 
+        tag => ({
+          '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+        }[tag] || tag)
+      );
+    }
+
+    // Initial load
+    loadOrders();
+  </script>
+</body>
+</html>

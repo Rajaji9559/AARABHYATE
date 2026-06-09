@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AARABHYATE | Storefront</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="scramble.js" defer></script>
+  <style>
+    .shop-hero {
+      padding-top: calc(72px + var(--space-12));
+      padding-bottom: var(--space-8);
+      text-align: center;
+      border-bottom: 1px solid var(--bg-border);
+      position: relative;
+    }
+    
+    .shop-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: var(--space-8);
+      padding: var(--space-12) 0;
+    }
+
+    /* Filters Sidebar */
+    .shop-sidebar {
+      display: flex; flex-direction: column; gap: var(--space-6);
+    }
+    .filter-group h4 {
+      font-size: 0.8rem; font-family: var(--font-mono); text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: var(--space-3);
+    }
+    .filter-group label {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: 0.85rem; color: var(--text-secondary); cursor: pointer;
+      margin-bottom: var(--space-2);
+    }
+    .filter-group input[type="checkbox"] { accent-color: var(--neon-green); }
+
+    /* Product Grid */
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--space-6);
+    }
+    .product-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: all var(--ease-normal);
+    }
+    .product-card:hover {
+      border-color: rgba(0,255,136,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4), 0 0 30px rgba(0,255,136,0.08);
+    }
+    .product-img {
+      width: 100%; aspect-ratio: 1;
+      background: var(--bg-elevated);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; border-bottom: 1px solid var(--bg-border);
+      overflow: hidden;
+    }
+    .product-img::before {
+      content: '⚙️'; font-size: 4rem; opacity: 0.1;
+    }
+    .product-badge {
+      position: absolute; top: var(--space-3); right: var(--space-3);
+      background: rgba(0,255,136,0.1); color: var(--neon-green);
+      border: 1px solid rgba(0,255,136,0.2);
+      padding: 2px 8px; border-radius: var(--radius-sm);
+      font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700;
+    }
+    
+    .product-body { padding: var(--space-4); display: flex; flex-direction: column; flex: 1; }
+    .product-category {
+      font-family: var(--font-mono); font-size: 0.65rem; color: var(--neon-cyan);
+      text-transform: uppercase; margin-bottom: var(--space-1);
+    }
+    .product-title { font-size: 1rem; margin-bottom: var(--space-2); }
+    .product-desc { font-size: 0.8rem; color: var(--text-muted); flex: 1; margin-bottom: var(--space-4); }
+    
+    .product-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: auto; padding-top: var(--space-3); border-top: 1px solid var(--bg-border);
+    }
+    .product-price { font-family: var(--font-mono); font-size: 1.1rem; font-weight: 700; color: var(--text-primary); }
+    
+    .btn-cart {
+      background: transparent; color: var(--neon-green);
+      border: 1px solid var(--neon-green);
+      padding: 4px 12px; border-radius: var(--radius-sm);
+      font-family: var(--font-mono); font-size: 0.75rem; cursor: pointer;
+      transition: all var(--ease-fast);
+    }
+    .btn-cart:hover {
+      background: rgba(0,255,136,0.1);
+      box-shadow: var(--glow-green);
+    }
+    .btn-cart:disabled {
+      border-color: var(--text-muted); color: var(--text-muted); cursor: not-allowed;
+      background: transparent; box-shadow: none;
+    }
+
+    @media (max-width: 900px) {
+      .shop-layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">
+      <img src="logo.png" alt="Aarabhyate Logo" class="brand-logo" aria-hidden="true" style="margin-right: var(--space-2); height: 40px; width: auto; flex-shrink: 0;">
+      <div class="brand-text">
+        <span class="brand-name scramble-target">AARABHYATE</span>
+        <span class="brand-sub">Research Group</span>
+      </div>
+    </a>
+    <ul class="navbar-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html" class="active">E-Shop</a></li>
+      <li><a href="portal.html">Custom Builds</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li>
+        <a href="login.html" class="btn btn-outline" style="padding: 6px 16px; margin-left: var(--space-4);">
+          Login
+        </a>
+      </li>
+      <li>
+        <a href="signup.html" class="btn btn-primary" style="padding: 6px 16px; margin-left: var(--space-2);">
+          Sign Up
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <section class="shop-hero">
+    <div class="container">
+      <h1 class="glitch-hover" style="width: fit-content; margin-inline: auto;">Precision <span class="neon-text-cyan">Hardware</span></h1>
+      <p style="max-width: 600px; margin: 16px auto 0;">Industrial-grade components and development kits engineered for high-performance robotics and automation systems.</p>
+    </div>
+  </section>
+
+  <div class="container shop-layout">
+    <aside class="shop-sidebar">
+      <div class="form-group" style="margin-bottom: var(--space-6);">
+        <input type="text" id="searchInput" class="form-input" placeholder="Search SKU or part...">
+      </div>
+
+      <div class="filter-group">
+        <h4>Category</h4>
+        <label><input type="radio" name="category" value="" checked> All</label>
+        <label><input type="radio" name="category" value="sensors"> Sensors</label>
+        <label><input type="radio" name="category" value="actuators"> Actuators</label>
+        <label><input type="radio" name="category" value="controllers"> Controllers</label>
+      </div>
+      
+      <div class="filter-group">
+        <h4>Availability</h4>
+        <label><input type="checkbox" id="inStockFilter" checked> In Stock Only</label>
+      </div>
+    </aside>
+
+    <main>
+      <div class="shop-grid" id="productGrid">
+        <div style="grid-column: 1/-1; text-align:center; padding: 40px; font-family: var(--font-mono); color: var(--text-muted);">
+          Loading systems...
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast">
+    <div class="toast-icon"></div>
+    <div class="toast-text"></div>
+  </div>
+
+  <script>
+    const grid = document.getElementById('productGrid');
+    const searchInput = document.getElementById('searchInput');
+    const inStockFilter = document.getElementById('inStockFilter');
+    const categoryRadios = document.querySelectorAll('input[name="category"]');
+
+    // Debounce timer for search
+    let typingTimer;
+
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      toast.className = `toast visible ${type}`;
+      toast.querySelector('.toast-icon').textContent = type === 'success' ? '✓' : '⚠️';
+      toast.querySelector('.toast-text').textContent = message;
+      setTimeout(() => { toast.classList.remove('visible'); }, 3000);
+    }
+
+    async function loadProducts() {
+      const search = encodeURIComponent(searchInput.value.trim());
+      const inStock = inStockFilter.checked ? 'true' : 'false';
+      const category = Array.from(categoryRadios).find(r => r.checked).value;
+
+      grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; font-family: var(--font-mono); color: var(--text-muted);">Scanning inventory...</div>';
+
+      try {
+        let url = `/api/v1/products?limit=50&search=${search}&in_stock=${inStock}`;
+        if (category) url += `&category=${category}`;
+
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Failed to fetch inventory');
+        
+        const data = await res.json();
+        
+        if (!data.products || data.products.length === 0) {
+          grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; font-family: var(--font-mono); color: var(--text-muted);">No components matched your parameters.</div>`;
+          return;
+        }
+
+        grid.innerHTML = data.products.map(p => `
+          <div class="product-card">
+            <div class="product-img">
+              ${p.image_url ? `<img src="${p.image_url}" alt="${escapeHTML(p.name)}" style="width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; z-index: 1;">` : ''}
+              ${p.stock <= 0 ? '<div class="product-badge" style="color:var(--neon-red); border-color:var(--neon-red); z-index: 2;">OUT OF STOCK</div>' : '<div class="product-badge" style="z-index: 2;">IN STOCK</div>'}
+            </div>
+            <div class="product-body">
+              <div class="product-category">${escapeHTML(p.category || 'Component')} · ${escapeHTML(p.sku || 'N/A')}</div>
+              <h3 class="product-title">${escapeHTML(p.name)}</h3>
+              <p class="product-desc">${escapeHTML(p.description).substring(0, 80)}...</p>
+              
+              <div class="product-footer" style="flex-direction: column; gap: var(--space-2); align-items: stretch;">
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: var(--space-1);">
+                  <div class="product-price">$${p.price.toFixed(2)}</div>
+                  ${p.stock <= 0 ? '<span class="label" style="color:var(--neon-red); font-size:0.6rem">Unavailable</span>' : `<span class="label" style="color:var(--neon-green); font-size:0.6rem">Stock: ${p.stock}</span>`}
+                </div>
+                <div style="display: flex; gap: var(--space-2); width: 100%;">
+                  <button class="btn-cart" style="flex: 1;" onclick="addToCart('${p.id}', \`${p.name.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`, ${p.price})" ${p.stock <= 0 ? 'disabled' : ''}>
+                    + ADD TO BUILD
+                  </button>
+                  <button class="btn-cart" style="flex: 1; border-color: var(--neon-cyan); color: var(--neon-cyan); background: rgba(0, 212, 255, 0.05);" onclick="buyNow('${p.id}', \`${p.name.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`, ${p.price})" ${p.stock <= 0 ? 'disabled' : ''}>
+                    BUY NOW
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+      } catch (err) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; color: var(--neon-red); font-family: var(--font-mono);">Error: ${err.message}</div>`;
+      }
+    }
+
+    function addToCart(id, name, price) {
+      showToast(`${name || 'Component'} added to build configuration`, 'success');
+    }
+
+    function buyNow(id, name, price) {
+      const token = localStorage.getItem("arg_token");
+      const selection = {
+        product_id: id,
+        name: name,
+        price: price,
+        quantity: 1
+      };
+      
+      localStorage.setItem("arg_checkout_selection", JSON.stringify(selection));
+      
+      if (!token) {
+        window.location.href = `/login.html?redirect=checkout`;
+      } else {
+        window.location.href = `/checkout.html`;
+      }
+    }
+
+    function escapeHTML(str) {
+      if (!str) return '';
+      return str.replace(/[&<>'"]/g, 
+        tag => ({
+          '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+        }[tag] || tag)
+      );
+    }
+
+    // Event Listeners
+    searchInput.addEventListener('keyup', () => {
+      clearTimeout(typingTimer);
+      typingTimer = setTimeout(loadProducts, 400);
+    });
+    inStockFilter.addEventListener('change', loadProducts);
+    categoryRadios.forEach(r => r.addEventListener('change', loadProducts));
+
+    // Initial Load
+    loadProducts();
+  </script>
+</body>
+</html>

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AARABHYATE Research Group | Precision Robotics & Intelligent Systems</title>
+  <meta name="description" content="AARABHYATE Research Group — Precision robotics, embedded AI, and autonomous systems engineering for next-generation industrial and research applications.">
+  <meta name="keywords" content="robotics, AI, embedded systems, autonomous systems, AARABHYATE, research group">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <script src="scramble.js" defer></script>
+  <style>
+    /* --- Loading Screen Animation --- */
+    body { overflow: hidden; /* Locked initially */ }
+    #loading-screen {
+      position: fixed; inset: 0;
+      background-color: var(--bg-surface);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999;
+      animation: fadeOut 0.5s ease 2.5s forwards;
+    }
+    .loader-logo {
+      width: 150px; height: auto;
+      animation: spinToUpright 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    @keyframes spinToUpright {
+      0% { transform: rotate(0deg) scale(0.8); opacity: 0; }
+      50% { opacity: 1; transform: rotate(180deg) scale(1.1); }
+      100% { transform: rotate(360deg) scale(1); opacity: 1; }
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+    .navbar-brand img.brand-logo {
+      height: 40px; width: auto; flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <img src="logo.png" alt="AARABHYATE Logo" class="loader-logo">
+  </div>
+<!-- ======================================================================
+     NAVIGATION
+     ====================================================================== -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <a href="index.html" class="navbar-brand" aria-label="AARABHYATE Home">
+    <img src="logo.png" alt="Aarabhyate Logo" class="brand-logo" aria-hidden="true" style="margin-right: var(--space-2)">
+    <div class="brand-text">
+      <span class="brand-name scramble-target">AARABHYATE</span>
+      <span class="brand-sub">Research Group</span>
+    </div>
+  </a>
+
+  <ul class="navbar-nav" id="main-nav" role="list">
+    <li><a href="#capabilities" class="active">Capabilities</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="shop.html">E-Shop</a></li>
+    <li><a href="portal.html">Custom Builds</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li>
+      <a href="login.html" class="btn btn-outline" style="padding: 6px 16px; margin-left: var(--space-4);">
+        Login
+      </a>
+    </li>
+    <li>
+      <a href="signup.html" class="btn btn-primary" style="padding: 6px 16px; margin-left: var(--space-2);">
+        Sign Up
+      </a>
+    </li>
+  </ul>
+
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ======================================================================
+     HERO SECTION
+     ====================================================================== -->
+<section class="hero" id="home" aria-label="Hero section">
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="hero-content">
+
+      <!-- Left: Copy -->
+      <div class="hero-copy fade-up">
+        <div class="hero-eyebrow">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="label">Est. 2026 · Bhopal, India</span>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="accent scramble-target">Precision</span> Robotics<br>
+          &amp; <span class="accent-cyan scramble-target">Intelligent</span><br>
+          Systems
+        </h1>
+
+        <p class="hero-description">
+          We build cutting-edge embedded systems, autonomous robots, and AI-driven
+          automation solutions. From research prototypes to production-grade deployments —
+          engineered for extreme reliability.
+        </p>
+
+        <div class="hero-cta">
+          <a href="portal.html" class="btn btn-primary" id="hero-cta-primary">
+            Start a Project →
+          </a>
+          <a href="#portfolio" class="btn btn-ghost" id="hero-cta-secondary">
+            View Portfolio
+          </a>
+        </div>
+
+        <div class="hero-stats" aria-label="Key statistics">
+          <div class="hero-stat">
+            <div class="hero-stat-value">48<span>+</span></div>
+            <div class="hero-stat-label">Projects Delivered</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-value">12<span>ms</span></div>
+            <div class="hero-stat-label">Avg Control Loop Latency</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-value">99<span>.4%</span></div>
+            <div class="hero-stat-label">System Uptime SLA</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Live System Terminal -->
+      <div class="hero-visual fade-up fade-up-delay-2" role="presentation" aria-hidden="true">
+        <div class="terminal-bar">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot amber"></span>
+          <span class="terminal-dot green"></span>
+          <span class="terminal-title">aarabhyate-core &mdash; system status</span>
+        </div>
+        <div class="terminal-body" id="terminal-output">
+          <span class="tl"><span class="prompt">❯ </span><span class="cmd">./aarabhyate --diagnostics --live</span></span>
+          <span class="tl blank"></span>
+          <span class="tl"><span class="out ok">✔ CORE SYSTEMS ONLINE</span></span>
+          <span class="tl"><span class="out">  CPU:  <span class="cyan">Cortex-M7 @ 480MHz</span>  [<span class="ok">READY</span>]</span></span>
+          <span class="tl"><span class="out">  GPU:  <span class="cyan">NVIDIA Jetson Orin</span>   [<span class="ok">READY</span>]</span></span>
+          <span class="tl"><span class="out">  IMU:  <span class="cyan">ICM-42688P 6-DOF</span>    [<span class="ok">LOCKED</span>]</span></span>
+          <span class="tl blank"></span>
+          <span class="tl"><span class="out">  Sensor Fusion:       <span class="ok">RUNNING ↑</span></span></span>
+          <span class="tl"><span class="out">  SLAM Module:         <span class="ok">MAPPING ●</span></span></span>
+          <span class="tl"><span class="out">  Neural Inference:    <span class="violet">97.4ms / frame</span></span></span>
+          <span class="tl"><span class="out">  Control Loop:        <span class="cyan">1kHz real-time</span></span></span>
+          <span class="tl blank"></span>
+          <span class="tl"><span class="out amber">⚡ BUILD v3.7.1-prod [stable]</span></span>
+          <span class="tl blank"></span>
+          <span class="tl"><span class="prompt">❯ </span><span class="cmd">status --uptime</span></span>
+          <span class="tl"><span class="out ok">  System uptime: 847h 22m 14s</span></span>
+          <span class="tl blank"></span>
+          <span class="tl"><span class="prompt">❯ </span><span class="cursor"></span></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================================
+     CAPABILITIES MATRIX
+     ====================================================================== -->
+<section class="section capabilities" id="capabilities" aria-label="Technical Capabilities">
+  <div class="container">
+    <header class="section-header fade-up">
+      <div class="label" style="margin-bottom:12px">Technical Stack</div>
+      <h2>Capabilities <span class="neon-text-green">Matrix</span></h2>
+      <p>
+        A full-spectrum engineering team — from bare-metal firmware and custom PCB design
+        to cloud-connected autonomous systems and production ML deployments.
+      </p>
+    </header>
+
+    <div class="capabilities-grid" role="list">
+
+      <!-- Card 1: Embedded Systems -->
+      <article class="capability-card" role="listitem" style="--accent-color: var(--neon-green)">
+        <div class="capability-icon" aria-hidden="true">⚙️</div>
+        <h3>Embedded Systems</h3>
+        <p>
+          Bare-metal and RTOS firmware development for ARM Cortex-M/A cores.
+          Custom BSPs, device drivers, and hard real-time control loops running at 1kHz+.
+        </p>
+        <ul class="spec-list" aria-label="Embedded systems specifications">
+          <li>STM32 / NXP i.MX RT / RP2040</li>
+          <li>FreeRTOS · Zephyr · bare-metal</li>
+          <li>CAN / SPI / I²C / UART / Modbus</li>
+          <li>Custom PCB design (KiCad, Altium)</li>
+        </ul>
+        <div class="skill-bars" aria-hidden="true">
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>Firmware</span><span>95%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>PCB Design</span><span>88%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%"></div></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2: Robotics & Motion -->
+      <article class="capability-card" role="listitem" style="--accent-color: var(--neon-cyan)">
+        <div class="capability-icon" aria-hidden="true">🦾</div>
+        <h3>Robotics &amp; Motion Control</h3>
+        <p>
+          From collaborative arms to mobile ground robots — kinematic modelling, trajectory
+          planning, and closed-loop motor control with sub-millimetre precision.
+        </p>
+        <ul class="spec-list" aria-label="Robotics specifications">
+          <li>ROS 2 / MoveIt / Nav2</li>
+          <li>FOC motor control (BLDC/PMSM)</li>
+          <li>6-DOF inverse kinematics</li>
+          <li>Force/torque sensor integration</li>
+        </ul>
+        <div class="skill-bars" aria-hidden="true">
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>ROS 2</span><span>91%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:91%;background:linear-gradient(90deg,var(--neon-cyan),rgba(0,212,255,0.3))"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>Motion Control</span><span>94%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:94%;background:linear-gradient(90deg,var(--neon-cyan),rgba(0,212,255,0.3))"></div></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3: AI / ML Inference -->
+      <article class="capability-card" role="listitem" style="--accent-color: var(--neon-violet)">
+        <div class="capability-icon" aria-hidden="true">🧠</div>
+        <h3>AI / ML &amp; Edge Inference</h3>
+        <p>
+          Deploying trained models to edge hardware with minimal latency.
+          Computer vision, anomaly detection, and reinforcement learning for robotics.
+        </p>
+        <ul class="spec-list" aria-label="AI/ML specifications">
+          <li>TensorRT · ONNX · TFLite</li>
+          <li>NVIDIA Jetson · Raspberry Pi CM4</li>
+          <li>YOLOv10 · Depth Estimation</li>
+          <li>RL policy training (Isaac Gym)</li>
+        </ul>
+        <div class="skill-bars" aria-hidden="true">
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>Edge Inference</span><span>89%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:89%;background:linear-gradient(90deg,var(--neon-violet),rgba(139,92,246,0.3))"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>Model Optimisation</span><span>85%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%;background:linear-gradient(90deg,var(--neon-violet),rgba(139,92,246,0.3))"></div></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4: Custom Automation -->
+      <article class="capability-card" role="listitem" style="--accent-color: var(--neon-amber)">
+        <div class="capability-icon" aria-hidden="true">⚡</div>
+        <h3>Custom Automation</h3>
+        <p>
+          End-to-end industrial automation from sensor integration and PLC programming
+          to SCADA dashboards and predictive maintenance pipelines.
+        </p>
+        <ul class="spec-list" aria-label="Automation specifications">
+          <li>Siemens S7 / Allen Bradley PLCs</li>
+          <li>OPC-UA · MQTT · Modbus TCP</li>
+          <li>Custom HMI development</li>
+          <li>Digital twin integration</li>
+        </ul>
+        <div class="skill-bars" aria-hidden="true">
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>PLC / SCADA</span><span>87%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:87%;background:linear-gradient(90deg,var(--neon-amber),rgba(245,158,11,0.3))"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>IIoT Integration</span><span>92%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:92%;background:linear-gradient(90deg,var(--neon-amber),rgba(245,158,11,0.3))"></div></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 5: Computer Vision -->
+      <article class="capability-card" role="listitem" style="--accent-color: var(--neon-cyan)">
+        <div class="capability-icon" aria-hidden="true">👁️</div>
+        <h3>Computer Vision &amp; SLAM</h3>
+        <p>
+          Real-time perception pipelines for autonomous navigation. Stereo depth,
+          LiDAR point-cloud processing, and semantic segmentation at 30FPS+.
+        </p>
+        <ul class="spec-list" aria-label="Computer vision specifications">
+          <li>OpenCV · Open3D · PCL</li>
+          <li>Intel RealSense · ZED 2i</li>
+          <li>RTAB-Map · Cartographer SLAM</li>
+          <li>Custom calibration rigs</li>
+        </ul>
+        <div class="skill-bars" aria-hidden="true">
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>SLAM / Mapping</span><span>90%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%;background:linear-gradient(90deg,var(--neon-cyan),rgba(0,212,255,0.3))"></div></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 6: Cloud & IoT Backend -->
+      <article class="capability-card" role="listitem" style="--accent-color: var(--neon-green)">
+        <div class="capability-icon" aria-hidden="true">☁️</div>
+        <h3>Cloud &amp; IoT Backend</h3>
+        <p>
+          Scalable Go / Python backends that ingest sensor telemetry, serve data
+          APIs, and power real-time dashboards for deployed robot fleets.
+        </p>
+        <ul class="spec-list" aria-label="Backend specifications">
+          <li>Go · gRPC · WebSocket</li>
+          <li>PostgreSQL · TimescaleDB</li>
+          <li>Docker · Kubernetes</li>
+          <li>MQTT broker (HiveMQ / Mosquitto)</li>
+        </ul>
+        <div class="skill-bars" aria-hidden="true">
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>Backend APIs</span><span>96%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:96%"></div></div>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /capabilities-grid -->
+  </div>
+</section>
+
+
+<!-- ======================================================================
+     PORTFOLIO SHOWCASE
+     ====================================================================== -->
+<section class="section" id="portfolio" aria-label="Portfolio Showcase">
+  <div class="container">
+    <header class="section-header fade-up">
+      <div class="label" style="margin-bottom:12px">Advanced Builds</div>
+      <h2>Portfolio <span class="neon-text-green">Showcase</span></h2>
+      <p>
+        A selection of research and commercial projects demonstrating our engineering depth —
+        from autonomous field robots to real-time AI inference systems.
+      </p>
+    </header>
+
+    <div class="portfolio-grid" role="list">
+
+      <!-- Featured: Autonomous Ground Robot -->
+      <article class="portfolio-card span-8 fade-up" role="listitem">
+        <div class="portfolio-card-image">
+          <div class="portfolio-img-placeholder bg-1">
+            <span class="ph-icon" aria-hidden="true">🤖</span>
+          </div>
+        </div>
+        <div class="portfolio-card-body">
+          <div class="portfolio-tags">
+            <span class="tag tag-green">Autonomous</span>
+            <span class="tag tag-cyan">ROS 2</span>
+            <span class="tag tag-violet">AI Vision</span>
+          </div>
+          <h3>ARIA-1 — Autonomous Research &amp; Inspection Robot</h3>
+          <p>
+            A six-wheeled autonomous ground vehicle with LiDAR-based SLAM, real-time
+            object detection (YOLOv10), and 8-hour operational endurance. Designed for
+            outdoor campus inspection, featuring remote teleoperation with 4G LTE failover.
+          </p>
+          <div class="portfolio-card-meta">
+            <div>
+              <div class="meta-label">Hardware</div>
+              <div class="meta-value">Jetson AGX Orin · RPLiDAR A3</div>
+            </div>
+            <div>
+              <div class="meta-label">Status</div>
+              <div class="meta-value" style="color:var(--neon-green)">✔ Deployed</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6-DOF Arm -->
+      <article class="portfolio-card span-4 fade-up fade-up-delay-1" role="listitem">
+        <div class="portfolio-card-image">
+          <div class="portfolio-img-placeholder bg-2">
+            <span class="ph-icon" aria-hidden="true">🦿</span>
+          </div>
+        </div>
+        <div class="portfolio-card-body">
+          <div class="portfolio-tags">
+            <span class="tag tag-cyan">6-DOF Arm</span>
+            <span class="tag tag-amber">FOC Control</span>
+          </div>
+          <h3>HEXA-ARM — Desktop 6-DOF Collaborative Arm</h3>
+          <p>
+            Sub-millimetre repeatability using custom FOC motor drivers.
+            Gravity compensation and force-torque sensing for safe human interaction.
+          </p>
+          <div class="portfolio-card-meta">
+            <div>
+              <div class="meta-label">Payload</div>
+              <div class="meta-value">2.5 kg</div>
+            </div>
+            <div>
+              <div class="meta-label">Repeatability</div>
+              <div class="meta-value">±0.08mm</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Edge AI -->
+      <article class="portfolio-card span-4 fade-up fade-up-delay-1" role="listitem">
+        <div class="portfolio-card-image">
+          <div class="portfolio-img-placeholder bg-3">
+            <span class="ph-icon" aria-hidden="true">⚡</span>
+          </div>
+        </div>
+        <div class="portfolio-card-body">
+          <div class="portfolio-tags">
+            <span class="tag tag-violet">Edge AI</span>
+            <span class="tag tag-green">TensorRT</span>
+          </div>
+          <h3>VisionCore — Real-Time Defect Detection</h3>
+          <p>
+            TensorRT-optimised defect detection pipeline running at 60FPS
+            on a Jetson Orin NX. Deployed on a textile manufacturing line.
+          </p>
+          <div class="portfolio-card-meta">
+            <div>
+              <div class="meta-label">Inference</div>
+              <div class="meta-value">6.2ms / frame</div>
+            </div>
+            <div>
+              <div class="meta-label">Accuracy</div>
+              <div class="meta-value">98.7%</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Drone -->
+      <article class="portfolio-card span-4 fade-up fade-up-delay-2" role="listitem">
+        <div class="portfolio-card-image">
+          <div class="portfolio-img-placeholder bg-4">
+            <span class="ph-icon" aria-hidden="true">🚁</span>
+          </div>
+        </div>
+        <div class="portfolio-card-body">
+          <div class="portfolio-tags">
+            <span class="tag tag-amber">UAV</span>
+            <span class="tag tag-cyan">PX4</span>
+          </div>
+          <h3>VEGA-Q — Precision Agriculture Drone</h3>
+          <p>
+            Custom hexacopter with multispectral imaging for crop health
+            mapping. Fully autonomous survey missions with 45-min flight time.
+          </p>
+          <div class="portfolio-card-meta">
+            <div><div class="meta-label">Coverage</div><div class="meta-value">12 ha / flight</div></div>
+            <div><div class="meta-label">Resolution</div><div class="meta-value">2cm/px GSD</div></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Smart Automation -->
+      <article class="portfolio-card span-4 fade-up fade-up-delay-2" role="listitem">
+        <div class="portfolio-card-image">
+          <div class="portfolio-img-placeholder bg-5">
+            <span class="ph-icon" aria-hidden="true">🏭</span>
+          </div>
+        </div>
+        <div class="portfolio-card-body">
+          <div class="portfolio-tags">
+            <span class="tag tag-green">IIoT</span>
+            <span class="tag tag-violet">SCADA</span>
+          </div>
+          <h3>FlowMesh — Smart Factory IIoT Gateway</h3>
+          <p>
+            Edge gateway aggregating 200+ sensor nodes over OPC-UA and
+            Modbus, feeding a real-time TimescaleDB telemetry backend.
+          </p>
+          <div class="portfolio-card-meta">
+            <div><div class="meta-label">Nodes</div><div class="meta-value">200+</div></div>
+            <div><div class="meta-label">Latency</div><div class="meta-value">&lt;5ms end-to-end</div></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Full-width: Exoskeleton -->
+      <article class="portfolio-card span-12 fade-up" role="listitem" style="display:grid;grid-template-columns:1fr 1fr">
+        <div class="portfolio-card-image" style="min-height:240px">
+          <div class="portfolio-img-placeholder bg-6" style="min-height:240px">
+            <span class="ph-icon" aria-hidden="true">🦺</span>
+          </div>
+        </div>
+        <div class="portfolio-card-body" style="padding:var(--space-8)">
+          <div class="portfolio-tags">
+            <span class="tag tag-violet">Exoskeleton</span>
+            <span class="tag tag-green">EMG Control</span>
+            <span class="tag tag-amber">Medical</span>
+          </div>
+          <h3>NEXO — Upper-Limb Rehabilitation Exoskeleton</h3>
+          <p>
+            A 4-DOF upper-limb exoskeleton for post-stroke motor rehabilitation.
+            EMG-driven intent detection with <15ms response latency. Gravity compensation
+            and adaptive assistance levels controlled via a clinician tablet dashboard.
+            Currently in clinical trials at AIIMS Bhopal.
+          </p>
+          <div class="portfolio-card-meta" style="margin-top:auto">
+            <div><div class="meta-label">Platform</div><div class="meta-value">STM32H7 + Jetson NX</div></div>
+            <div><div class="meta-label">DOF</div><div class="meta-value">4 active</div></div>
+            <div><div class="meta-label">Stage</div><div class="meta-value" style="color:var(--neon-amber)">Clinical Trials</div></div>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /portfolio-grid -->
+  </div>
+</section>
+
+
+<!-- ======================================================================
+     CALL TO ACTION
+     ====================================================================== -->
+<section class="section" aria-label="Call to action">
+  <div class="container">
+    <div class="cta-banner">
+      <div class="label" style="margin-bottom:var(--space-4)">Start Building</div>
+      <h2>Have a complex problem<br>that needs a <span class="neon-text-green">precision solution</span>?</h2>
+      <p>
+        Whether you're a student working on your final year project, a startup needing
+        an MVP prototype, or an industrial client automating a production process —
+        we scope, design, and deliver.
+      </p>
+      <div style="display:flex;gap:var(--space-3);justify-content:center;flex-wrap:wrap">
+        <a href="portal.html" class="btn btn-primary" id="cta-portal-link">
+          Submit a Project Brief →
+        </a>
+        <a href="mailto:contact@aarabhyate.com" class="btn btn-outline" id="cta-email-link">
+          Email Directly
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================================
+     FOOTER
+     ====================================================================== -->
+<footer class="footer" aria-label="Site footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="navbar-brand" style="text-decoration:none">
+          <img src="logo.png" alt="Aarabhyate Logo" class="brand-logo" aria-hidden="true" style="margin-right: var(--space-2)">
+          <div class="brand-text">
+            <span class="brand-name">AARABHYATE</span>
+            <span class="brand-sub">Research Group</span>
+          </div>
+        </a>
+        <p style="margin-top:var(--space-4)">
+          Engineering intelligent systems at the intersection of robotics,
+          embedded hardware, and applied AI.
+        </p>
+      </div>
+      <div>
+        <h4>Domains</h4>
+        <ul class="footer-links">
+          <li><a href="#capabilities">Embedded Systems</a></li>
+          <li><a href="#capabilities">Robotics</a></li>
+          <li><a href="#capabilities">AI / ML</a></li>
+          <li><a href="#capabilities">Industrial IoT</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul class="footer-links">
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="portal.html">Project Portal</a></li>
+          <li><a href="#">Research Papers</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:contact@aarabhyate.com">contact@aarabhyate.com</a></li>
+          <li><a href="#">Bhopal, Madhya Pradesh</a></li>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 AARABHYATE Research Group. All rights reserved.</p>
+      <p class="mono" style="font-size:0.7rem;color:var(--text-muted)">
+        v3.7.1-prod · <span style="color:var(--neon-green)">API ONLINE</span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ======================================================================
+     JAVASCRIPT
+     ====================================================================== -->
+<script>
+/* Hamburger toggle */
+const hamburger = document.getElementById('hamburger');
+const nav       = document.getElementById('main-nav');
+hamburger.addEventListener('click', () => {
+  const open = nav.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+  hamburger.setAttribute('aria-expanded', open);
+});
+
+/* Navbar scroll shadow */
+window.addEventListener('scroll', () => {
+  document.querySelector('.navbar').style.boxShadow =
+    window.scrollY > 10 ? '0 4px 32px rgba(0,0,0,0.5)' : '';
+}, { passive: true });
+
+/* Smooth anchor scroll (fallback for older browsers) */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+/* Intersection Observer for fade-up elements */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.animationPlayState = 'running';
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.fade-up').forEach(el => {
+  el.style.animationPlayState = 'paused';
+  observer.observe(el);
+});
+
+/* Terminal typewriter effect */
+(function() {
+  const lines = document.querySelectorAll('#terminal-output .tl');
+  lines.forEach((l, i) => {
+    l.style.opacity = '0';
+    setTimeout(() => {
+      l.style.opacity = '1';
+      l.style.transition = 'opacity 0.3s ease';
+    }, i * 100);
+  });
+})();
+
+/* Loading Screen Failsafe */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const loader = document.getElementById('loading-screen');
+    if(loader) {
+      loader.remove();
+      document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+  }, 3000); // 2.5s fade out + 0.5s transition
+});
+</script>
+
+</body>
+</html>
